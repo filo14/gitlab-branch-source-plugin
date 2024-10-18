@@ -24,11 +24,12 @@ public class GitLabMergeRequestSCMEvent extends AbstractGitLabSCMHeadEvent<Merge
         super(typeOf(mrEvent), mrEvent, origin);
     }
 
-    // TODO: Take care of "locked" state
     private static Type typeOf(MergeRequestEvent mrEvent) {
-        if (mrEvent.getObjectAttributes().getState().equals("closed")) {
+        String action = mrEvent.getObjectAttributes().getAction();
+        String state = mrEvent.getObjectAttributes().getState();
+        if (state != null && state .equals("closed")) {
             return Type.REMOVED;
-        } else if (mrEvent.getObjectAttributes().getAction().equals("open")) {
+        } else if (action  != null && action .equals("open")) {
             return Type.CREATED;
         }
         return Type.UPDATED;
