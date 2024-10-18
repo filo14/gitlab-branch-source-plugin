@@ -27,9 +27,9 @@ public class GitLabMergeRequestSCMEvent extends AbstractGitLabSCMHeadEvent<Merge
     private static Type typeOf(MergeRequestEvent mrEvent) {
         String action = mrEvent.getObjectAttributes().getAction();
         String state = mrEvent.getObjectAttributes().getState();
-        if (state != null && state .equals("closed")) {
+        if (state != null && state.equals("closed")) {
             return Type.REMOVED;
-        } else if (action  != null && action .equals("open")) {
+        } else if (action != null && action.equals("open")) {
             return Type.CREATED;
         }
         return Type.UPDATED;
